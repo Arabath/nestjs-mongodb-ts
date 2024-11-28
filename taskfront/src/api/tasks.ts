@@ -1,6 +1,6 @@
 import { CreateTask, UpdateTask } from "../interface/task.interface";
 
-const API = "http://localhost:3000";
+const API = "http://localhost:3000/api";
 
 export const getTasksRequest = async () => fetch(`${API}/tasks`);
 

@@ -5,7 +5,7 @@ import {
   deleteTaskRequest,
   updateTaskRequest,
   getTasksRequest,
-} from "../api/task";
+} from "../api/tasks";
 
 interface TaskContextValue {
   tasks: Task[];
@@ -48,7 +48,7 @@ export const TaskProvider: React.FC<Props> = ({ children }) => {
 
   const deleteTask = async (id: string) => {
     const response = await deleteTaskRequest(id);
-    console.log(response);
+    console.log({ response });
     if (response.status === 204) {
       setTasks(tasks.filter((task) => task._id !== id));
     }
@@ -57,15 +57,15 @@ export const TaskProvider: React.FC<Props> = ({ children }) => {
   const updateTask = async (id: string, task: UpdateTask) => {
     const response = await updateTaskRequest(id, task);
     const data = await response.json();
-    console.log(data);
+    console.log({ data });
     setTasks(
       tasks.map((task) => (task._id === id ? { ...task, ...data } : task))
     );
   };
 
-  return(
-    <TaskContext.Provider value={{tasks, createTask, deleteTask, updateTask}}>
-        {children}
+  return (
+    <TaskContext.Provider value={{ tasks, createTask, deleteTask, updateTask }}>
+      {children}
     </TaskContext.Provider>
-  )
+  );
 };
